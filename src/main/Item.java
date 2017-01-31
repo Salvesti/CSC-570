@@ -1,5 +1,8 @@
 package main;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Brad Olah
@@ -9,7 +12,7 @@ public class Item
 {
 	String name;
 	String time;
-	int age;
+	String age;
 
 	public Item(String name, String time, int age)
 	{
@@ -21,26 +24,45 @@ public class Item
 	/**
 	 * Cleans up name input to make sure it is
 	 * at most 10 characters long.
-	 * @param name2
+	 * @param name
 	 * @return
 	 */
-	private String formatName(String name2)
+	private String formatName(String name)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (name.length() > 10)
+		{
+			System.out.println("Name too long. Shortened to 10 characters.");
+			name = name.substring(0, 9);
+		}else if(name.length()<10)
+		{
+			System.out.println("Filling space to 10 characters.");
+			while(name.length()<10)
+			{
+				name = name+" ";
+			}
+		}
+		return name;
 	}
 
 
 	/**
 	 * Cleans up time input to make sure it is
 	 * formatted ##:##.
-	 * @param time2
+	 * @param time
 	 * @return
 	 */
-	private String formatTime(String time2)
+	private String formatTime(String time)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Pattern format = Pattern.compile("\\d\\d:\\d\\d");
+		Matcher matcher = format.matcher(time);
+		Boolean hasMatched = matcher.matches();
+		if(hasMatched)
+		{
+			return time;
+		}else
+		{
+			return "00:00";
+		}
 	}
 
 	/**
@@ -49,10 +71,25 @@ public class Item
 	 * @param age
 	 * @return
 	 */
-	private int formatAge(int age)
+	private String formatAge(int age)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		if(age>999)
+		{
+			System.out.println("Age too high. Must be under 999");
+			age = 999;
+			return ""+age;
+		}else if(age>99)
+		{
+			return age+" ";
+		}else if(age>9)
+		{
+			return age+"  ";
+		}else if(age>0)
+		{
+			return 0+"  ";
+		}
+		return "000";
 	}
 
 	public String getName()
@@ -70,7 +107,7 @@ public class Item
 	{
 		this.time = formatTime(time);
 	}
-	public int getAge()
+	public String getAge()
 	{
 		return age;
 	}
