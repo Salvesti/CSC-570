@@ -1,12 +1,8 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.file.Files;
 
 /**
  *
@@ -69,9 +65,8 @@ public class DataHandler
 		Item item = new Item(name,time,age);
 		try
 		{
-			file.writeChars(item.name+" "+item.time+" "+item.age+"\n");
-
-
+			file.seek(file.length());
+			file.writeBytes(""+item.name+"\t"+item.time+"\t"+item.age+"\n");
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
@@ -80,10 +75,60 @@ public class DataHandler
 
 	}
 
-	public Item getItem(int entryNum)
+	public void printItem(int targetEntry)
 	{
-		return null;
+		Item item = getItem(targetEntry);
+		System.out.println(item.name+"\t"+item.time+"\t"+item.age);
+	}
 
+	/**
+	 * Get the string that represents an item from the database.
+	 * @param targetEntry
+	 * @return
+	 */
+	public Item getItem(int targetEntry)
+	{
+		try
+		{
+			file.seek(0);
+			int currentEntry = 0;
+			String entry = null;
+			while(currentEntry < targetEntry)
+			{
+				entry = file.readLine();
+				currentEntry++;
+			}
+			return buildItem(entry);
+
+
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * Returns an item based on the given entry string.
+	 * @param entry
+	 * @return
+	 */
+	private Item buildItem(String entry)
+	{
+		Item item;
+		String name;
+		String time;
+		int age;
+		String[] splitEntry = entry.split("\t");
+
+		name = splitEntry[0];
+		time = splitEntry[1];
+		age = Integer.parseInt(splitEntry[2].trim());
+
+		item = new Item(name,time,age);
+
+		return item;
 	}
 
 	public void modifyName(int entryNum)

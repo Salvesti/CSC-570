@@ -11,7 +11,9 @@ public class Runner
 	{
 		DataHandler funHandler = new DataHandler("fun.dat");
 		funHandler.addItem("John", "11:11", 21);
+		funHandler.printItem(2);
 		funHandler.closeFile();
+
 	}
 
 }
