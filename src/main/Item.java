@@ -16,9 +16,9 @@ public class Item
 
 	public Item(String name, String time, int age)
 	{
-		this.name = formatName(name);
-		this.time = formatTime(time);
-		this.age = formatAge(age);
+		setName(name);
+		setTime(time);
+		setAge(age);
 	}
 
 	/**
@@ -35,7 +35,6 @@ public class Item
 			name = name.substring(0, 9);
 		}else if(name.length()<10)
 		{
-			System.out.println("Filling space to 10 characters.");
 			while(name.length()<10)
 			{
 				name = name+" ";
@@ -73,19 +72,18 @@ public class Item
 	 */
 	private String formatAge(int age)
 	{
-		// TODO Auto-generated method stub
 		if(age>999)
 		{
 			System.out.println("Age too high. Must be under 999");
 			age = 999;
 			return ""+age;
-		}else if(age>99)
+		}else if(age<=99)
 		{
 			return age+" ";
-		}else if(age>9)
+		}else if(age<=9)
 		{
 			return age+"  ";
-		}else if(age>0)
+		}else if(age<=0)
 		{
 			return 0+"  ";
 		}
