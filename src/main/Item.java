@@ -4,7 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * A class that handles the logic for an item.
+ * Takes care of input clean up.
  * @author Brad Olah
  */
 

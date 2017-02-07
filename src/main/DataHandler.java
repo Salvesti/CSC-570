@@ -8,7 +8,7 @@ import java.util.Scanner;
 import com.sun.xml.internal.ws.util.StringUtils;
 
 /**
- *
+ * A class that handles the data manipulation in of the storage file.
  * @author Brad Olah
  */
 
@@ -31,7 +31,8 @@ public class DataHandler
 	}
 
 	/**
-	 * Initializes the DataHandler.
+	 * Initializes the DataHandler and runs the interface for
+	 * working with the file this handler was created for.
 	 */
 	public void init()
 	{
@@ -265,7 +266,7 @@ public class DataHandler
 		{
 			System.out.print("The entry at space "+entryNumber+" is: ");
 			printItem(entryNumber);
-			System.out.print("Modifications:\n1 - Name\n2 - Time\n3 - Age\n4 - Close");
+			System.out.print("Modifications:\n1 - Name\n2 - Time\n3 - Age\n4 - Done Modifying");
 			String input = s.nextLine();
 			switch(Integer.parseInt(input.substring(0, 1)))
 			{
@@ -318,6 +319,7 @@ public class DataHandler
 
 	/**
 	 * Modifies the name of the given record.
+	 * @param item
 	 */
 	private void modifyName(Item item) 
 	{
@@ -326,6 +328,10 @@ public class DataHandler
 		item.setName(name);
 	}
 	
+	/**
+	 * Modifies the time of the given record.
+	 * @param item
+	 */
 	private void modifyTime(Item item) 
 	{
 		System.out.print("Enter the time for the entry.\nTimes must be 5 characters long in the format ##:##\n");
@@ -333,6 +339,10 @@ public class DataHandler
 		item.setTime(time);
 	}	
 	
+	/**
+	 * Modifies the age of the given record.
+	 * @param item
+	 */
 	private void modifyAge(Item item) 
 	{
 		System.out.println("Enter the age for the entry.\nAges must be a number from 0-999\n");
